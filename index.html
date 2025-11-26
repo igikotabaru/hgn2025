@@ -68,8 +68,8 @@
         let app, db, auth, userId;
         let allData = []; // Untuk menyimpan data CSV setelah dimuat
         
-        // PERUBAHAN: Menghapus './' agar fetch dapat meresolusi URL dengan benar di berbagai lingkungan.
-        const CSV_URL = 'data.csv'; 
+        // GANTI: Menggunakan path relatif karena file CSV diupload langsung ke GitHub Pages
+        const CSV_URL = './data.csv'; 
 
         const statusMessage = document.getElementById('status-message');
         const searchInput = document.getElementById('search-input');
@@ -151,7 +151,7 @@
         async function loadCSVData() {
             statusMessage.textContent = "Mengunduh data sertifikat... (Ini mungkin membutuhkan waktu sebentar)";
             try {
-                // Fetch akan menggunakan jalur relatif 'data.csv'
+                // Fetch akan menggunakan jalur relatif './data.csv'
                 const response = await fetchWithRetry(CSV_URL, { method: 'GET' });
                 const csvText = await response.text();
                 
