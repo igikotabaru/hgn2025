@@ -1,327 +1,353 @@
 <!DOCTYPE html>
-<!-- Created with https://packager.turbowarp.org/ -->
-<html>
+<html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- We only include this to explicitly loosen the CSP of various packager environments. It does not provide any security. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:">
-  <title>Kuis Sistem Pencernaan Manusia</title>
-  <style>
-    body {
-      color: #ffffff;
-      font-family: sans-serif;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-    }
-    :root, body.is-fullscreen {
-      background-color: #000000;
-    }
-    [hidden] {
-      display: none !important;
-    }
-    h1 {
-      font-weight: normal;
-    }
-    a {
-      color: inherit;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    #app, #loading, #error, #launch {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      cursor: default;
-      user-select: none;
-      -webkit-user-select: none;
-      background-color: #000000;
-    }
-    #launch {
-      background-color: rgba(0, 0, 0, 0.7);
-      cursor: pointer;
-    }
-    .green-flag {
-      width: 80px;
-      height: 80px;
-      padding: 16px;
-      border-radius: 100%;
-      background: rgba(255, 255, 255, 0.75);
-      border: 3px solid hsla(0, 100%, 100%, 1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-    }
-    #loading {
-      
-    }
-    .progress-bar-outer {
-      border: 1px solid currentColor;
-      height: 10px;
-      width: 200px;
-      max-width: 200px;
-    }
-    .progress-bar-inner {
-      height: 100%;
-      width: 0;
-      background-color: currentColor;
-    }
-    .loading-text, noscript {
-      font-weight: normal;
-      font-size: 36px;
-      margin: 0 0 16px;
-    }
-    .loading-image {
-      margin: 0 0 16px;
-    }
-    #error-message, #error-stack {
-      font-family: monospace;
-      max-width: 600px;
-      white-space: pre-wrap;
-      user-select: text;
-      -webkit-user-select: text;
-    }
-    #error-stack {
-      text-align: left;
-      max-height: 200px;
-      overflow: auto;
-    }
-    .control-button {
-      width: 2rem;
-      height: 2rem;
-      padding: 0.375rem;
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-      user-select: none;
-      -webkit-user-select: none;
-      cursor: pointer;
-      border: 0;
-      border-radius: 4px;
-    }
-    .control-button-highlight:hover {
-      background: #ff4c4c26;
-    }
-    .control-button-highlight.active {
-      background: #ff4c4c59;
-    }
-    .fullscreen-button {
-      background: white;
-    }
-    .standalone-fullscreen-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 0 0 0 4px;
-      padding: 4px;
-      cursor: pointer;
-    }
-    .sc-canvas {
-      cursor: auto;
-    }
-    .sc-monitor-root[data-opcode^="data_"] .sc-monitor-value-color {
-      background-color: #ff8c1a;
-    }
-    .sc-monitor-row-value-outer {
-      background-color: #fc662c;
-    }
-    .sc-monitor-row-value-editing .sc-monitor-row-value-outer {
-      background-color: #e25b27;
-    }
-    
-  </style>
-  <meta name="theme-color" content="#000000">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Sertifikat Peserta</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Font Inter -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
 </head>
-<body>
-  <div id="app"></div>
+<body class="p-4 md:p-8">
 
-  <div id="launch" class="screen" hidden title="Click to start">
-    <div class="green-flag">
-      <svg viewBox="0 0 16.63 17.5" width="42" height="44">
-        <defs><style>.cls-1,.cls-2{fill:#4cbf56;stroke:#45993d;stroke-linecap:round;stroke-linejoin:round;}.cls-2{stroke-width:1.5px;}</style></defs>
-        <path class="cls-1" d="M.75,2A6.44,6.44,0,0,1,8.44,2h0a6.44,6.44,0,0,0,7.69,0V12.4a6.44,6.44,0,0,1-7.69,0h0a6.44,6.44,0,0,0-7.69,0"/>
-        <line class="cls-2" x1="0.75" y1="16.75" x2="0.75" y2="0.75"/>
-      </svg>
+    <div id="app" class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6 md:p-10">
+        <header class="mb-8">
+            <h1 class="text-3xl font-extrabold text-indigo-700 mb-2">Pencarian Sertifikat Peserta</h1>
+            <p class="text-gray-600">Pilih kategori lomba dan masukkan nama peserta untuk mencari sertifikat.</p>
+        </header>
+
+        <!-- Formulir Pencarian -->
+        <div class="space-y-4 mb-8 p-4 bg-indigo-50 rounded-xl border border-indigo-200">
+            <div>
+                <label for="category-select" class="block text-sm font-medium text-gray-700 mb-1">Pilih Kategori Lomba</label>
+                <select id="category-select" class="w-full p-3 border border-indigo-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out bg-white text-gray-800 shadow-sm">
+                    <option value="">-- Pilih Semua Kategori --</option>
+                    <option value="Cerdas Cermat Matematika">Cerdas Cermat Matematika</option>
+                    <option value="Karya Koding Blok">Karya Koding Blok</option>
+                    <option value="Video Penerapan Pembelajaran Mendalam">Video Penerapan Pembelajaran Mendalam</option>
+                </select>
+            </div>
+            <div>
+                <label for="search-input" class="block text-sm font-medium text-gray-700 mb-1">Cari Nama Peserta</label>
+                <input type="text" id="search-input" placeholder="Ketik nama lengkap peserta..." class="w-full p-3 border border-indigo-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out text-gray-800 shadow-sm">
+            </div>
+            <button id="search-button" class="w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out shadow-lg">
+                Cari Sertifikat
+            </button>
+        </div>
+
+        <!-- Area Status & Loading -->
+        <div id="status-message" class="text-center p-4 text-sm text-gray-500">Memuat data...</div>
+
+        <!-- Area Hasil Pencarian -->
+        <h2 class="text-xl font-bold text-gray-800 mt-10 mb-4 border-b pb-2">Hasil Pencarian (<span id="result-count">0</span>)</h2>
+        <div id="results-container" class="space-y-4">
+            <!-- Pesan instruksi awal akan ditampilkan di sini setelah data dimuat -->
+        </div>
+
     </div>
-  </div>
 
-  <div id="loading" class="screen">
-    <noscript>Enable JavaScript</noscript>
-    
-    
-    <div class="progress-bar-outer"><div class="progress-bar-inner" id="loading-inner"></div></div>
-  </div>
+    <script type="module">
+        // Import modul Firebase (boilerplate required by the environment)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-  <div id="error" class="screen" hidden>
-    <h1>Error</h1>
-    <details>
-      <summary id="error-message"></summary>
-      <p id="error-stack"></p>
-    </details>
-  </div>
+        // Global Variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-  <script src="script.js"></script>
-  <script>
-    const appElement = document.getElementById('app');
-    const launchScreen = document.getElementById('launch');
-    const loadingScreen = document.getElementById('loading');
-    const loadingInner = document.getElementById('loading-inner');
-    const errorScreen = document.getElementById('error');
-    const errorScreenMessage = document.getElementById('error-message');
-    const errorScreenStack = document.getElementById('error-stack');
+        let app, db, auth, userId;
+        let allData = []; // Untuk menyimpan data CSV setelah dimuat
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVkf5eJC_unWb2OJ0ZkqccCNbCJRgVpFyn6BwM3WeoGlS0Zi-iZszbN5qiiGaakosVZsiIh1sVnupn/pub?output=csv';
 
-    const handleError = (error) => {
-      console.error(error);
-      if (!errorScreen.hidden) return;
-      errorScreen.hidden = false;
-      errorScreenMessage.textContent = '' + error;
-      let debug = error && error.stack || 'no stack';
-      debug += '\nUser agent: ' + navigator.userAgent;
-      errorScreenStack.textContent = debug;
-    };
-    const setProgress = (progress) => {
-      if (loadingInner) loadingInner.style.width = progress * 100 + '%';
-    };
-    const interpolate = (a, b, t) => a + t * (b - a);
+        const statusMessage = document.getElementById('status-message');
+        const searchInput = document.getElementById('search-input');
+        const categorySelect = document.getElementById('category-select');
+        const searchButton = document.getElementById('search-button');
+        const resultsContainer = document.getElementById('results-container');
+        const resultCountSpan = document.getElementById('result-count');
 
-    try {
-      setProgress(0.1);
+        // Fungsi utilitas untuk konversi base64 ke ArrayBuffer (tidak digunakan)
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
 
-      const scaffolding = new Scaffolding.Scaffolding();
-      scaffolding.width = 480;
-      scaffolding.height = 360;
-      scaffolding.resizeMode = "preserve-ratio";
-      scaffolding.editableLists = false;
-      scaffolding.usePackagedRuntime = true;
-      scaffolding.setup();
-      scaffolding.appendTo(appElement);
+        // --- FIREBASE INITIALIZATION AND AUTHENTICATION ---
+        async function initializeFirebase() {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.warn("Firebase configuration is missing or empty.");
+                } else {
+                    app = initializeApp(firebaseConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+                    setLogLevel('Debug');
 
-      const vm = scaffolding.vm;
-      window.scaffolding = scaffolding;
-      window.vm = scaffolding.vm;
-      window.Scratch = {
-        vm,
-        renderer: vm.renderer,
-        audioEngine: vm.runtime.audioEngine,
-        bitmapAdapter: vm.runtime.v2BitmapAdapter,
-        videoProvider: vm.runtime.ioDevices.video.provider
-      };
-
-      scaffolding.setUsername("player####".replace(/#/g, () => Math.floor(Math.random() * 10)));
-      scaffolding.setAccentColor("#ff4c4c");
-
-      try {
-        scaffolding.addCloudProvider(new Scaffolding.Cloud.WebSocketProvider(["wss://clouddata.turbowarp.org","wss://clouddata.turbowarp.xyz"], "p4-@Kuis Sistem Pencernaan Manusia.sb3"));
-      } catch (error) {
-        console.error(error);
-      }
-
-      vm.setTurboMode(false);
-      if (vm.setInterpolation) vm.setInterpolation(false);
-      if (vm.setFramerate) vm.setFramerate(30);
-      if (vm.renderer.setUseHighQualityRender) vm.renderer.setUseHighQualityRender(false);
-      if (vm.setRuntimeOptions) vm.setRuntimeOptions({
-        fencing: true,
-        miscLimits: true,
-        maxClones: 300,
-      });
-      if (vm.setCompilerOptions) vm.setCompilerOptions({
-        enabled: true,
-        warpTimer: false
-      });
-      if (vm.renderer.setMaxTextureDimension) vm.renderer.setMaxTextureDimension(2048);
-
-      // enforcePrivacy threat model only makes sense in the editor
-      if (vm.runtime.setEnforcePrivacy) vm.runtime.setEnforcePrivacy(false);
-
-      if (typeof ScaffoldingAddons !== 'undefined') {
-        ScaffoldingAddons.run(scaffolding, {"gamepad":false,"pointerlock":false,"specialCloudBehaviors":false,"unsafeCloudBehaviors":false,"pause":false});
-      }
-
-      scaffolding.setExtensionSecurityManager({
-        getSandboxMode: () => 'unsandboxed',
-        canLoadExtensionFromProject: () => true
-      });
-      for (const extension of []) {
-        vm.extensionManager.loadExtensionURL(extension);
-      }
-
-    } catch (e) {
-      handleError(e);
-    }
-  </script>
-  
-  
-    <script>
-      const getProjectData = (function() {
-        const storage = scaffolding.storage;
-        storage.onprogress = (total, loaded) => {
-          setProgress(interpolate(0.2, 0.98, loaded / total));
-        };
+                    onAuthStateChanged(auth, async (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            console.log("Firebase Auth Ready. User ID:", userId);
+                            await loadCSVData();
+                        } else {
+                            try {
+                                if (initialAuthToken) {
+                                    await signInWithCustomToken(auth, initialAuthToken);
+                                } else {
+                                    await signInAnonymously(auth);
+                                }
+                            } catch (error) {
+                                console.error("Firebase Sign-in Failed:", error);
+                                statusMessage.textContent = "Gagal terhubung ke layanan otentikasi. Mencoba memuat data CSV.";
+                                await loadCSVData();
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Error during Firebase setup:", e);
+                statusMessage.textContent = "Terjadi kesalahan pada inisialisasi aplikasi. Mencoba memuat data CSV.";
+                await loadCSVData();
+            }
+        }
         
-        storage.addWebStore(
-          [
-            storage.AssetType.ImageVector,
-            storage.AssetType.ImageBitmap,
-            storage.AssetType.Sound,
-            storage.AssetType.Font
-          ].filter(i => i),
-          (asset) => new URL('./assets/' + asset.assetId + '.' + asset.dataFormat, location).href
-        );
-        return () => new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = () => {
-          resolve(xhr.response);
-        };
-        xhr.onerror = () => {
-          if (location.protocol === 'file:') {
-            reject(new Error('Zip environment must be used on a website, not on a local file. To fix this error, use the "Plain HTML" environment instead.'));
-          } else {
-            reject(new Error('Request to load project data failed.'));
-          }
-        };
-        xhr.onprogress = (e) => {
-          if (e.lengthComputable) {
-            setProgress(interpolate(0.1, 0.2, e.loaded / e.total));
-          }
-        };
-        xhr.responseType = 'arraybuffer';
-        xhr.open('GET', "./assets/project.json");
-        xhr.send();
-      });
-      })();
-    </script>
-  <script>
-    const run = async () => {
-      const projectData = await getProjectData();
-      await scaffolding.loadProject(projectData);
-      setProgress(1);
-      loadingScreen.hidden = true;
-      if (false) {
-        scaffolding.start();
-      } else {
-        launchScreen.hidden = false;
-        launchScreen.addEventListener('click', () => {
-          launchScreen.hidden = true;
-          scaffolding.start();
+        // Fungsi untuk menangani backoff eksponensial saat fetch
+        async function fetchWithRetry(url, options, maxRetries = 5) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    console.log(`Fetch attempt ${i + 1} failed. Retrying in ${delay.toFixed(0)}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        /**
+         * Mengambil dan memparsing data CSV menjadi array objek.
+         */
+        async function loadCSVData() {
+            statusMessage.textContent = "Mengunduh data sertifikat... (Ini mungkin membutuhkan waktu sebentar)";
+            try {
+                const response = await fetchWithRetry(CSV_URL, { method: 'GET' });
+                const csvText = await response.text();
+                
+                // Parsing CSV sederhana
+                const lines = csvText.split('\n').filter(line => line.trim() !== '');
+                if (lines.length < 2) {
+                    throw new Error("Data CSV kosong atau tidak valid.");
+                }
+
+                // Baris pertama adalah header, dipecah dan dibersihkan
+                const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
+                
+                console.log("Headers CSV yang terdeteksi:", headers); 
+
+                // --- PENCARIAN INDEX HEADER YANG LEBIH ROBUST ---
+                let nameIndex = headers.findIndex(h => h.toLowerCase().includes('nama peserta'));
+                if (nameIndex === -1) {
+                    nameIndex = headers.findIndex(h => h.toLowerCase().includes('name') || h.toLowerCase().includes('nama'));
+                }
+
+                let categoryIndex = headers.findIndex(h => h.toLowerCase().includes('kategori'));
+                if (categoryIndex === -1) {
+                    categoryIndex = headers.findIndex(h => h.toLowerCase().includes('category'));
+                }
+
+                let linkIndex = headers.findIndex(h => h.toLowerCase().includes('link sertifikat'));
+                if (linkIndex === -1) {
+                    linkIndex = headers.findIndex(h => h.toLowerCase().includes('link') || h.toLowerCase().includes('certificate'));
+                }
+                // -------------------------------------------------
+
+                if (nameIndex === -1 || categoryIndex === -1) {
+                     console.error("Header yang diperlukan ('Nama Peserta' atau 'Kategori') tidak ditemukan.");
+                     statusMessage.textContent = "Gagal menemukan kolom 'Nama Peserta' atau 'Kategori' dalam data CSV. Silakan periksa header data Anda.";
+                     statusMessage.classList.replace('text-gray-500', 'text-red-600');
+                     searchButton.disabled = true;
+                     return; // Hentikan jika header penting tidak ditemukan
+                }
+
+                allData = lines.slice(1).map(line => {
+                    // Split baris dengan regex yang mencoba menangani koma di dalam tanda kutip
+                    const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)?.map(val => val.trim().replace(/"/g, '')) || [];
+
+                    const row = {};
+                    headers.forEach((header, i) => {
+                        row[header] = values[i] || ''; // Simpan semua kolom
+                    });
+
+                    // Gunakan index yang ditemukan
+                    const participantName = values[nameIndex] || 'Tidak Diketahui';
+                    const category = values[categoryIndex] || 'Tidak Diketahui';
+                    const certificateLink = (linkIndex !== -1 && values[linkIndex] && values[linkIndex].startsWith('http')) ? values[linkIndex] : null;
+                    
+                    // Kita akan menggunakan properti khusus untuk mempermudah pencarian dan filter
+                    row.ParticipantName = participantName;
+                    row.Category = category;
+                    row.CertificateLink = certificateLink;
+                    
+                    return row;
+                }).filter(row => row.ParticipantName !== 'Tidak Diketahui' && row.Category !== 'Tidak Diketahui'); // Filter baris yang mungkin kosong
+
+                statusMessage.textContent = `Data berhasil dimuat. Total ${allData.length} entri. Siap mencari.`;
+                statusMessage.classList.replace('text-gray-500', 'text-green-600');
+                searchButton.disabled = false;
+
+                // Menampilkan instruksi awal
+                resultsContainer.innerHTML = `
+                    <div class="text-center p-8 bg-indigo-50 rounded-xl text-indigo-700">
+                        <p class="font-semibold">Masukkan nama peserta dan klik tombol "Cari Sertifikat" untuk menampilkan hasil.</p>
+                    </div>
+                `;
+                resultCountSpan.textContent = '0';
+
+            } catch (error) {
+                console.error("Gagal memuat atau memparsing data CSV:", error);
+                statusMessage.textContent = "Gagal memuat data sertifikat. Silakan periksa URL dan format data CSV.";
+                statusMessage.classList.replace('text-gray-500', 'text-red-600');
+                searchButton.disabled = true;
+            }
+        }
+
+        /**
+         * Menampilkan hasil pencarian di UI.
+         * @param {Array<Object>} data Array hasil filter.
+         */
+        function renderResults(data) {
+            resultsContainer.innerHTML = '';
+            resultCountSpan.textContent = data.length;
+
+            if (data.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="text-center p-8 bg-yellow-50 rounded-xl text-yellow-700">
+                        <p class="font-semibold">Tidak ada sertifikat ditemukan.</p>
+                        <p class="text-sm mt-1">Coba sesuaikan kata kunci atau kategori pencarian Anda.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Batasi tampilan hasil untuk kinerja
+            const displayData = data.slice(0, 100); 
+
+            displayData.forEach(item => {
+                const name = item.ParticipantName || 'N/A';
+                const category = item.Category || 'N/A';
+                const link = item.CertificateLink;
+                
+                // Ambil semua kolom selain Nama, Kategori, dan Link untuk detail
+                const otherDetails = Object.keys(item)
+                    .filter(key => key !== 'ParticipantName' && key !== 'Category' && key !== 'CertificateLink' && key.trim() !== '') 
+                    .map(key => ({ key, value: item[key] }))
+                    .filter(detail => detail.value && detail.key !== 'Timestamp'); 
+
+                const detailsHtml = otherDetails.length > 0 ? otherDetails.map(detail => `
+                    <p class="text-xs text-gray-500"><span class="font-medium">${detail.key}:</span> ${detail.value}</p>
+                `).join('') : '<p class="text-xs text-gray-500">Detail tambahan tidak tersedia.</p>';
+
+                const linkButton = link ? `
+                    <a href="${link}" target="_blank" class="mt-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                        Lihat Sertifikat
+                        <svg class="ml-2 -mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </a>
+                ` : '<p class="text-xs text-red-500 mt-2">Tautan sertifikat tidak ditemukan atau tidak valid.</p>';
+
+
+                const card = document.createElement('div');
+                card.className = 'p-4 md:p-5 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition duration-200 ease-in-out flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <h3 class="text-lg font-semibold text-indigo-800">${name}</h3>
+                        <p class="text-sm font-medium text-purple-600 mt-1 mb-3">${category}</p>
+                        <div class="space-y-1 mt-2 p-3 bg-gray-50 rounded-lg">
+                            ${detailsHtml}
+                        </div>
+                    </div>
+                    ${linkButton}
+                `;
+                resultsContainer.appendChild(card);
+            });
+
+            if (data.length > 100) {
+                 resultsContainer.innerHTML += `
+                    <div class="text-center p-4 text-sm text-gray-500">
+                        Menampilkan 100 dari ${data.length} hasil yang ditemukan. Mohon perkecil pencarian Anda.
+                    </div>
+                `;
+            }
+        }
+
+        /**
+         * Logika utama untuk memfilter data.
+         */
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categorySelect.value;
+            
+            if (allData.length === 0) {
+                // Jangan lakukan pencarian jika data belum dimuat
+                return;
+            }
+            
+            // Tambahkan validasi jika kotak pencarian kosong dan kategori "Semua" dipilih
+            if (searchTerm === '' && selectedCategory === '') {
+                resultsContainer.innerHTML = `
+                    <div class="text-center p-8 bg-orange-50 rounded-xl text-orange-700">
+                        <p class="font-semibold">Harap masukkan setidaknya sebagian nama atau pilih kategori lomba untuk memulai pencarian.</p>
+                    </div>
+                `;
+                resultCountSpan.textContent = '0';
+                return;
+            }
+
+
+            const filteredData = allData.filter(item => {
+                const nameMatch = item.ParticipantName.toLowerCase().includes(searchTerm);
+                
+                const categoryMatch = selectedCategory === '' || item.Category === selectedCategory;
+                
+                // Hasil harus cocok dengan nama DAN kategori
+                return nameMatch && categoryMatch;
+            });
+
+            renderResults(filteredData);
+        }
+
+        // --- EVENT LISTENERS ---
+        searchButton.addEventListener('click', performSearch);
+        
+        // Memungkinkan pencarian saat menekan Enter di input
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
         });
-        launchScreen.focus();
-      }
-    };
-    run().catch(handleError);
-  </script>
+        
+        // --- START APP ---
+        window.onload = initializeFirebase; // Mulai inisialisasi Firebase dan pemuatan data CSV
+    </script>
 </body>
 </html>
