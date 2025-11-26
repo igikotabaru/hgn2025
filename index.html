@@ -67,7 +67,9 @@
 
         let app, db, auth, userId;
         let allData = []; // Untuk menyimpan data CSV setelah dimuat
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVkf5eJC_unWb2OJ0ZkqccCNbCJRgVpFyn6BwM3WeoGlS0Zi-iZszbN5qiiGaakosVZsiIh1sVnupn/pub?output=csv';
+        
+        // PERUBAHAN: Menghapus './' agar fetch dapat meresolusi URL dengan benar di berbagai lingkungan.
+        const CSV_URL = 'data.csv'; 
 
         const statusMessage = document.getElementById('status-message');
         const searchInput = document.getElementById('search-input');
@@ -149,6 +151,7 @@
         async function loadCSVData() {
             statusMessage.textContent = "Mengunduh data sertifikat... (Ini mungkin membutuhkan waktu sebentar)";
             try {
+                // Fetch akan menggunakan jalur relatif 'data.csv'
                 const response = await fetchWithRetry(CSV_URL, { method: 'GET' });
                 const csvText = await response.text();
                 
@@ -224,7 +227,8 @@
 
             } catch (error) {
                 console.error("Gagal memuat atau memparsing data CSV:", error);
-                statusMessage.textContent = "Gagal memuat data sertifikat. Silakan periksa URL dan format data CSV.";
+                // Tambahkan pesan yang lebih spesifik jika error disebabkan oleh fetch data lokal
+                statusMessage.textContent = `Gagal memuat data sertifikat dari ${CSV_URL}. Pastikan file 'data.csv' sudah diunggah dan namanya benar.`;
                 statusMessage.classList.replace('text-gray-500', 'text-red-600');
                 searchButton.disabled = true;
             }
